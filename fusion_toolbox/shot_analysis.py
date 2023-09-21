@@ -7,7 +7,7 @@ def smooth(data):
     pass
 
 def compute_duration_phases(shot):
-    """Determins the duration of the ramp-up, flat-top and ramp down phases
+    """Determines the duration of the ramp-up, flat-top and ramp down phases
     """
     pass
 
