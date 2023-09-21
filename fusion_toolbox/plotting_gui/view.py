@@ -1,14 +1,18 @@
 
-def run_gui():
-    import tkinter
+from controller import 
 
-    import numpy as np
+import tkinter
 
-    # Implement the default Matplotlib key bindings.
-    from matplotlib.backend_bases import key_press_handler
-    from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,
+import numpy as np
+
+# Implement the default Matplotlib key bindings.
+from matplotlib.backend_bases import key_press_handler
+from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,
                                                 NavigationToolbar2Tk)
-    from matplotlib.figure import Figure
+from matplotlib.figure import Figure
+
+def run_gui():
+    
 
     root = tkinter.Tk()
     root.wm_title("Embedding in Tk")
@@ -27,19 +31,27 @@ def run_gui():
     toolbar = NavigationToolbar2Tk(canvas, root, pack_toolbar=False)
     toolbar.update()
 
-    canvas.mpl_connect(
-        "key_press_event", lambda event: print(f"you pressed {event.key}"))
+    canvas.mpl_connect("key_press_event", lambda event: print(f"you pressed {event.key}"))
     canvas.mpl_connect("key_press_event", key_press_handler)
 
     button_quit = tkinter.Button(master=root, text="Quit", command=root.destroy)
 
-    def next_shot():
-        print("GO TO NEXT SHOT")
+    slider_update = tkinter.Scale(root, from_=1, to=5, orient=tkinter.HORIZONTAL,
+                                command=update_frequency, label="Frequency [Hz]")
 
-    button_next = tkinter.Button(master=root, text="Next Shot", command=next_shot)
+    # Packing order is important. Widgets are processed sequentially and if there
+    # is no space left, because the window is too small, they are not displayed.
+    # The canvas is rather flexible in its size, so we pack it last which makes
+    # sure the UI controls are displayed as long as possible.
+    button_quit.pack(side=tkinter.BOTTOM)
+    slider_update.pack(side=tkinter.BOTTOM)
+    toolbar.pack(side=tkinter.BOTTOM, fill=tkinter.X)
+    canvas.get_tk_widget().pack(side=tkinter.TOP, fill=tkinter.BOTH, expand=True)
+
+    tkinter.mainloop()
 
 
-    def update_frequency(new_val):
+def update_frequency(new_val, line, canvas):
         # retrieve frequency
         f = float(new_val)
 
@@ -51,20 +63,3 @@ def run_gui():
         canvas.draw()
 
 
-    slider_update = tkinter.Scale(root, from_=1, to=5, orient=tkinter.HORIZONTAL,
-                                command=update_frequency, label="Frequency [Hz]")
-
-    # Packing order is important. Widgets are processed sequentially and if there
-    # is no space left, because the window is too small, they are not displayed.
-    # The canvas is rather flexible in its size, so we pack it last which makes
-    # sure the UI controls are displayed as long as possible.
-    button_quit.pack(side=tkinter.BOTTOM)
-    slider_update.pack(side=tkinter.BOTTOM)
-    button_next.pack(side=tkinter.RIGHT)
-    toolbar.pack(side=tkinter.BOTTOM, fill=tkinter.X)
-    canvas.get_tk_widget().pack(side=tkinter.TOP, fill=tkinter.BOTH, expand=True)
-
-    tkinter.mainloop()
-
-
-    
