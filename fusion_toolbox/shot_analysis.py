@@ -1,3 +1,50 @@
+class ShotPlot:
+
+    def __init__(self) -> None:
+        self.signals_to_plot = [] # list of lists. Sublists contain the signals to plot together 
+        self.shots = []
+        self.shot_data = {}
+        self.y_limits = {}
+        self.x_limits = {}
+
+    def plot(self):
+        """Plots the signals of the shots
+        """
+        pass
+
+    def load_shot(shot: int):
+        """Loads the data of a shot from the database into a pandas dataframe
+
+        Args:
+            shot (str): the shot number
+        """
+        return df
+    
+    def set_signals_to_plot():
+        """Sets the signals to plot
+        """
+        pass
+
+    def set_y_limits():
+        """Sets the y limits
+        """
+        pass
+
+    def set_x_limits():
+        """Sets the x limits
+        """
+        pass
+
+    
+
+
+
+def set_signals_to_plot():
+    """Sets the signals to plot
+    """
+    pass
+
+
 def smooth(data):
     """Smooth the data to remove noise
 
@@ -7,7 +54,7 @@ def smooth(data):
     pass
 
 def compute_duration_phases(shot):
-    """Determins the duration of the ramp-up, flat-top and ramp down phases
+    """Determines the duration of the ramp-up, flat-top and ramp down phases
     """
     pass
 
