@@ -37,6 +37,8 @@ class Shot:
             try:
                 self.shot_id = self.data["shot"]
             except:
+                if self.path[-4:] == ".csv":
+                    self.shot_id = int(self.path[-14:-4])
                 pass
         try:
             self.device = self.data["tokamak"]
